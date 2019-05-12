@@ -11,11 +11,13 @@ import java.util.Map;
 
 public class MetroGraph {
     private ArrayList<ArrayList<DirectEdge>> metroGraph;
-    private final String DATA_PATH = "C:\\Users\\chewi\\Documents\\Ecole\\Isep\\a2\\[II.2315] Algorithmique et programmation avancée\\GraphRATP\\data";
+//    private final String DATA_PATH = "C:\\Users\\chewi\\Documents\\Ecole\\Isep\\a2\\[II.2315] Algorithmique et programmation avancée\\GraphRATP\\data";
+    private final String DATA_PATH = "/home/paul/Work/GraphRATP/data";
 
     public MetroGraph() throws Exception {
         this.metroGraph = new ArrayList<>();
-        File metroDataPath = new File(DATA_PATH+ "\\reseau.json");
+//        File metroDataPath = new File(DATA_PATH+ "\\reseau.json");
+        File metroDataPath = new File(DATA_PATH+ "/reseau.json");
         JSONObject reseau = (JSONObject) new JSONParser().parse(new FileReader(metroDataPath));
         JSONObject stations = (JSONObject) reseau.get("stations");
         Iterator<Map.Entry> lignes = ((Map)reseau.get("lignes")).entrySet().iterator();
