@@ -1,3 +1,5 @@
+package metroGraph;
+
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -5,8 +7,8 @@ import java.util.ArrayList;
 public class Station {
     private int id;
     private String name;
-    private float lat;
-    private float lon;
+    private double lat;
+    private double lon;
     private boolean isInGraph;
 
     public Station(int id) {
@@ -17,6 +19,7 @@ public class Station {
     public Station(int id, JSONObject stations, ArrayList<ArrayList<DirectEdge>> metroGraph) {
         this.isInGraph = false;
         this.id = id;
+
         for (ArrayList<DirectEdge> sts : metroGraph) {
             Station station = sts.get(0).getA();
             if (station.id == id) {
@@ -28,10 +31,12 @@ public class Station {
             }
         }
         if (!this.isInGraph) {
+
+
             JSONObject st = (JSONObject) stations.get(Integer.toString(id));
             this.name = (String) st.get("nom");
-            this.lat = Float.parseFloat((String) st.get("lat"));
-            this.lon = Float.parseFloat((String) st.get("lng"));
+            this.lat = Double.parseDouble((String) st.get("lat"));
+            this.lon = Double.parseDouble((String) st.get("lng"));
         }
     }
 
@@ -47,11 +52,11 @@ public class Station {
         return name;
     }
 
-    public float getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public float getLon() {
+    public double getLon() {
         return lon;
     }
 

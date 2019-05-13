@@ -34,16 +34,16 @@
         <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u7XgEP5hSYAO6" name="unsigned long int"/>
         <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uIkSzB0pCYjmK" name="long double"/>
         <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uk3UIHdqVK3ZF" name="wchar_t"/>
-        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" elementReference="uIVfPxUf4oObe" isRoot="false" xmi.id="uhKbRhNyi4eT3" name="ArrayList&lt;ArrayList&lt;Station>>"/>
-        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" elementReference="uIVfPxUf4oObe" isRoot="false" xmi.id="u6ubinv2JLd7p" name="ArrayList&lt;ArrayList&lt;DirectEdge>>"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" elementReference="uIVfPxUf4oObe" isRoot="false" xmi.id="uhKbRhNyi4eT3" name="ArrayList&lt;ArrayList&lt;metroGraph.Station>>"/>
+        <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" elementReference="uIVfPxUf4oObe" isRoot="false" xmi.id="u6ubinv2JLd7p" name="ArrayList&lt;ArrayList&lt;metroGraph.DirectEdge>>"/>
        </UML:Namespace.ownedElement>
       </UML:Package>
-      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uCrXyWIMQzbl5" name="MetroGraph">
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uCrXyWIMQzbl5" name="metroGraph.MetroGraph">
        <UML:Classifier.feature>
         <UML:Attribute visibility="private" isSpecification="false" xmi.id="uEiAo6xSwduMd" type="u6ubinv2JLd7p" name="L"/>
        </UML:Classifier.feature>
       </UML:Class>
-      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uKrFMaE520hXm" name="Station">
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uKrFMaE520hXm" name="metroGraph.Station">
        <UML:Classifier.feature>
         <UML:Attribute visibility="private" isSpecification="false" xmi.id="uAgAPhubNFXlt" type="urrBYo0FnmI0n" name="lat"/>
         <UML:Attribute visibility="private" isSpecification="false" xmi.id="uv7dv0KPDBTE5" type="urrBYo0FnmI0n" name="long"/>
@@ -57,7 +57,7 @@
       <UML:Dependency visibility="public" isSpecification="false" namespace="Logical_View" supplier="uAo7sE56GuRoO" xmi.id="u1XwyDnDnXbYr" client="uCrXyWIMQzbl5" name=""/>
       <UML:Dependency visibility="public" isSpecification="false" namespace="Logical_View" supplier="uIVfPxUf4oObe" xmi.id="uY6D99JY5BxDv" client="uCrXyWIMQzbl5" name=""/>
       <UML:Dependency visibility="public" isSpecification="false" namespace="Logical_View" supplier="uAo7sE56GuRoO" xmi.id="uOje9A6wKK1Zv" client="uCrXyWIMQzbl5" name=""/>
-      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uZcDa1hI8ElH5" name="DirectEdge">
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uZcDa1hI8ElH5" name="metroGraph.DirectEdge">
        <UML:Classifier.feature>
         <UML:Attribute visibility="private" isSpecification="false" xmi.id="ugDXsz14eMaIk" type="uKrFMaE520hXm" name="A"/>
         <UML:Attribute visibility="private" isSpecification="false" xmi.id="uNrxOuQQL1FVL" type="uKrFMaE520hXm" name="B"/>

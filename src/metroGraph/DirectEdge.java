@@ -1,3 +1,5 @@
+package metroGraph;
+
 public class DirectEdge {
     private Station A;
     private Station B;

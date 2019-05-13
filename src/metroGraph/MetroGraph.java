@@ -1,3 +1,7 @@
+package metroGraph;
+
+import metroGraph.DirectEdge;
+import metroGraph.Station;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,7 +15,7 @@ import java.util.Map;
 
 public class MetroGraph {
     private ArrayList<ArrayList<DirectEdge>> metroGraph;
-    private final String DATA_PATH = "C:\\Users\\chewi\\Documents\\Ecole\\Isep\\a2\\[II.2315] Algorithmique et programmation avancée\\GraphRATP\\data";
+    private final String DATA_PATH = "D:\\chewi\\Documents\\Ecole\\Isep\\a2\\[II.2315] Algorithmique et programmation avancée\\GraphRATP\\data";
 
     public MetroGraph() throws Exception {
         this.metroGraph = new ArrayList<>();
@@ -57,7 +61,9 @@ public class MetroGraph {
         }
     }
 
-
+    public ArrayList<ArrayList<DirectEdge>> getMetroGraph() {
+        return metroGraph;
+    }
 
     @Override
     public String toString() {
