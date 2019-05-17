@@ -1,13 +1,12 @@
 package graphDraw;
 
+import edu.princeton.cs.introcs.StdDraw;
 import metroGraph.DirectEdge;
 import metroGraph.Station;
 
-import javax.swing.*;
-import java.awt.*;
 import java.text.DecimalFormat;
 
-public class DirectEdgeDraw extends JPanel implements DrawSettings {
+public class DirectEdgeDraw  implements DrawSettings {
     private int x1;
     private int y1;
     private int x2;
@@ -21,6 +20,7 @@ public class DirectEdgeDraw extends JPanel implements DrawSettings {
         this.y1 = posLat(A.getLat());
         this.x2 = posLon(B.getLon());
         this.y2 = posLat(B.getLat());
+        paintComponent();
         System.out.println(this.toString());
     }
 
@@ -51,15 +51,14 @@ public class DirectEdgeDraw extends JPanel implements DrawSettings {
         return Integer.parseInt(floatAsString);
     }
 
-    /*
-    public void paintComponent(Graphics g) {
-        System.out.println("Je suis exécutée !");
-        g.fillOval(x1, y1, stationWidth, stationHeight);
-        //g.fillOval(x2, y2, stationWidth, stationHeight);
-        //g.drawLine(x1, y1,x2,y2);
+
+    public void paintComponent() {
+        StdDraw.filledCircle(x1, y1, stationRadius);
+        StdDraw.filledCircle(x2, y2, stationRadius);
+        StdDraw.line(x1,y1,x2,y2);
     }
 
-     */
+
 
     public int getX1() {
         return x1;

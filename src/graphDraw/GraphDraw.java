@@ -1,49 +1,35 @@
 package graphDraw;
 
+import data.DataBuilder;
+import edu.princeton.cs.introcs.StdDraw;
 import metroGraph.DirectEdge;
-import metroGraph.MetroGraph;
+import metroGraph.*;
 
-import java.awt.*;
 import java.util.ArrayList;
-import javax.swing.*;
 
-public class GraphDraw extends JFrame implements DrawSettings {
-    MetroGraph metroGraph;
+public class GraphDraw  implements DrawSettings {
+    private MetroGraph metroGraph;
 
     public GraphDraw() throws Exception {
-        this.setSize(frameWidth, frameHeight);
-        this.setLocationRelativeTo(null);
-        this.setAlwaysOnTop(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
+        StdDraw.setCanvasSize(frameWidth, frameHeight);
+        StdDraw.setXscale(0, frameWidth);
+        StdDraw.setYscale(0, frameHeight);
 
-        metroGraph = new MetroGraph();
-        /*
-        Container container = getContentPane();
+        DataBuilder data = new DataBuilder();
+        MetroGraph metroGraph = new MetroGraph(data.getData());
+
         for (ArrayList<DirectEdge> stations : metroGraph.getMetroGraph()) {
             for (DirectEdge directEdge : stations) {
-                container.add(new DirectEdgeDraw(directEdge));
-                break;
+                new DirectEdgeDraw(directEdge);
             }
-            break;
         }
 
-         */
 
 
 
     }
 
-    public void paint(Graphics g) {
-        for (ArrayList<DirectEdge> stations : metroGraph.getMetroGraph()) {
-            for (DirectEdge directEdge : stations) {
-                DirectEdgeDraw directEdgeDraw = new DirectEdgeDraw(directEdge);
-                g.fillOval(directEdgeDraw.getX1(), directEdgeDraw.getY1(), stationWidth, stationHeight);
-                g.fillOval(directEdgeDraw.getX2(), directEdgeDraw.getY2(), stationWidth, stationHeight);
-                g.drawLine(directEdgeDraw.getX1(), directEdgeDraw.getY1(),directEdgeDraw.getX2(),directEdgeDraw.getY2());
-            }
-        }
-    }
+
 
 }
 
