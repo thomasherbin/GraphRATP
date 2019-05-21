@@ -16,11 +16,13 @@ public class GraphDraw  implements DrawSettings {
         StdDraw.setYscale(0, frameHeight);
 
         DataBuilder data = new DataBuilder();
-        MetroGraph metroGraph = new MetroGraph(data.getData());
+        this.metroGraph = new MetroGraph(data.getData());
 
         for (ArrayList<DirectEdge> stations : metroGraph.getMetroGraph()) {
             for (DirectEdge directEdge : stations) {
-                new DirectEdgeDraw(directEdge);
+                boolean AisStationMultyLine = isStationMultyLine(directEdge.getA());
+                boolean BisStationMultyLine = isStationMultyLine(directEdge.getB());
+                new DirectEdgeDraw(directEdge, AisStationMultyLine, BisStationMultyLine);
             }
         }
 
@@ -29,6 +31,30 @@ public class GraphDraw  implements DrawSettings {
 
     }
 
+    private boolean isStationMultyLine(Station station) {
+        for (ArrayList<DirectEdge> stations : metroGraph.getMetroGraph()) {
+            for (DirectEdge directEdge : stations) {
+                if (directEdge.getA().getId() == station.getId()) {
+                    if (numberLigneStation(stations) > 1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private int numberLigneStation(ArrayList<DirectEdge> stations) {
+        ArrayList<String> lignes = new ArrayList<>();
+        for (DirectEdge directEdge : stations) {
+            if (!lignes.contains(directEdge.getMetroLine())) {
+                lignes.add(directEdge.getMetroLine());
+            }
+        }
+        return lignes.size();
+    }
 
 
 }

@@ -2,7 +2,6 @@ package metroGraph;
 
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Station {
@@ -20,7 +19,6 @@ public class Station {
         this.lat = Double.parseDouble((String) st.get("lat"));
         this.lon = Double.parseDouble((String) st.get("lng"));
     }
-
 
 
 

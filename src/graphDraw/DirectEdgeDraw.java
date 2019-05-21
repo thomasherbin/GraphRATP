@@ -13,9 +13,11 @@ public class DirectEdgeDraw  implements DrawSettings {
     private int x2;
     private int y2;
     private String color;
+    private boolean AisStationMultyLine;
+    private boolean BisStationMultyLine;
 
 
-    public DirectEdgeDraw(DirectEdge directEdge) {
+    public DirectEdgeDraw(DirectEdge directEdge, boolean AisStationMultyLine, boolean BisStationMultyLine) {
         Station A = directEdge.getA();
         Station B = directEdge.getB();
         this.x1 = posLon(A.getLon());
@@ -23,6 +25,8 @@ public class DirectEdgeDraw  implements DrawSettings {
         this.x2 = posLon(B.getLon());
         this.y2 = posLat(B.getLat());
         this.color = findColor(directEdge.getMetroLine());
+        this.AisStationMultyLine = AisStationMultyLine;
+        this.BisStationMultyLine = BisStationMultyLine;
         paintComponent();
         System.out.println(this.toString());
     }
@@ -64,10 +68,25 @@ public class DirectEdgeDraw  implements DrawSettings {
 
     public void paintComponent() {
         StdDraw.setPenColor(Color.decode(color));
-        StdDraw.filledCircle(x1, y1, stationRadius);
-        StdDraw.filledCircle(x2, y2, stationRadius);
         StdDraw.line(x1,y1,x2,y2);
-        StdDraw.setPenColor(Color.BLACK);
+        if (AisStationMultyLine) {
+            StdDraw.setPenColor(Color.white);
+            StdDraw.filledCircle(x1, y1, stationRadius);
+            StdDraw.setPenColor(Color.BLACK);
+            StdDraw.circle(x1, y1, stationRadius);
+        } else {
+            StdDraw.setPenColor(Color.decode(color));
+            StdDraw.filledCircle(x1, y1, stationRadius);
+        }
+        if (BisStationMultyLine) {
+            StdDraw.setPenColor(Color.white);
+            StdDraw.filledCircle(x2, y2, stationRadius);
+            StdDraw.setPenColor(Color.BLACK);
+            StdDraw.circle(x2, y2, stationRadius);
+        } else {
+            StdDraw.setPenColor(Color.decode(color));
+            StdDraw.filledCircle(x2, y2, stationRadius);
+        }
     }
 
 
