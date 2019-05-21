@@ -4,6 +4,7 @@ import edu.princeton.cs.introcs.StdDraw;
 import metroGraph.DirectEdge;
 import metroGraph.Station;
 
+import java.awt.*;
 import java.text.DecimalFormat;
 
 public class DirectEdgeDraw  implements DrawSettings {
@@ -11,6 +12,7 @@ public class DirectEdgeDraw  implements DrawSettings {
     private int y1;
     private int x2;
     private int y2;
+    private String color;
 
 
     public DirectEdgeDraw(DirectEdge directEdge) {
@@ -20,12 +22,20 @@ public class DirectEdgeDraw  implements DrawSettings {
         this.y1 = posLat(A.getLat());
         this.x2 = posLon(B.getLon());
         this.y2 = posLat(B.getLat());
+        this.color = findColor(directEdge.getMetroLine());
         paintComponent();
         System.out.println(this.toString());
     }
 
 
-
+    private String findColor(String metroNumLine) {
+        for (String[] metroLine : colorLigne) {
+            if (metroLine[0].equals(metroNumLine)) {
+                return metroLine[1];
+            }
+        }
+        return "#ffffff";
+    }
 
     public int posLat(double pos) {
         return posCalculator(minLat, maxLat, doublePosToInt(pos), frameHeight);
@@ -53,9 +63,11 @@ public class DirectEdgeDraw  implements DrawSettings {
 
 
     public void paintComponent() {
+        StdDraw.setPenColor(Color.decode(color));
         StdDraw.filledCircle(x1, y1, stationRadius);
         StdDraw.filledCircle(x2, y2, stationRadius);
         StdDraw.line(x1,y1,x2,y2);
+        StdDraw.setPenColor(Color.BLACK);
     }
 
 
