@@ -7,10 +7,11 @@ import java.util.Objects;
 
 public class Station {
     private int id;
+    private static int orderID = 0;
+
     private String name;
     private double lat;
     private double lon;
-
 
 
     public Station(int id,JSONObject stations) {
@@ -19,6 +20,8 @@ public class Station {
         this.name = (String) st.get("nom");
         this.lat = Double.parseDouble((String) st.get("lat"));
         this.lon = Double.parseDouble((String) st.get("lng"));
+
+        this.orderID++;
     }
 
 
@@ -45,6 +48,15 @@ public class Station {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+
+    public static int getOrderID() {
+        return orderID;
+    }
+
+    public static void decrementOrderID() {
+        orderID--;
     }
 
 

@@ -11,6 +11,7 @@ class MetroGraphTest {
         DataBuilder data = new DataBuilder();
         MetroGraph metroGraph = new MetroGraph(data.getData());
         System.out.println(metroGraph.toString());
+        System.out.println("Order : " + metroGraph.getOrder() + " | Size : " + metroGraph.getSize());
     }
 
     @Test

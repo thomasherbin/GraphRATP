@@ -7,9 +7,13 @@ import java.util.ArrayList;
 
 public class MetroGraph {
     private ArrayList<ArrayList<DirectEdge>> metroGraph;
+    private int graphOrder;
+    private int graphSize;
 
     public MetroGraph(Data data) {
         this.metroGraph = new ArrayList<>();
+        this.graphOrder = 0;
+        this.graphSize = 0;
 
         for (DirectEdge directEdge : data.getData()) {
 
@@ -25,6 +29,9 @@ public class MetroGraph {
     }
 
     public void addDirectEdge(Station A, Station B, String metroLineNum) {
+        //compute order based on the highest station id
+        this.graphOrder = Station.getOrderID() > this.graphOrder ? Station.getOrderID() : this.graphOrder;
+
         boolean containsVertex = false;
         for (ArrayList<DirectEdge> directedEdges : metroGraph) {
             if (directedEdges.get(0).getA().equals(A)) {
@@ -36,6 +43,8 @@ public class MetroGraph {
             metroGraph.add(new ArrayList<>());
             metroGraph.get(metroGraph.size() - 1).add(new DirectEdge(A, B, metroLineNum));
         }
+
+        graphSize++;
     }
 
 
@@ -53,5 +62,14 @@ public class MetroGraph {
             str += "\n";
         }
         return str;
+    }
+
+
+    public int getOrder() {
+        return graphOrder;
+    }
+
+    public int getSize() {
+        return graphSize;
     }
 }
