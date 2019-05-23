@@ -32,16 +32,15 @@ public class GraphDraw  implements DrawSettings {
     }
 
     private boolean isStationMultyLine(Station station) {
-        for (ArrayList<DirectEdge> stations : metroGraph.getMetroGraph()) {
-            for (DirectEdge directEdge : stations) {
-                if (directEdge.getA().getId() == station.getId()) {
-                    if (numberLigneStation(stations) > 1) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+        ArrayList<DirectEdge> stations = metroGraph.stationDirectEdge(station);
+        for (DirectEdge directEdge :stations) {
+            if (directEdge.getA().getId() == station.getId()) {
+                if (numberLigneStation(stations) > 1) {
+                    return true;
+                } else {
+                    return false;
                 }
-            }
+        }
         }
         return false;
     }
