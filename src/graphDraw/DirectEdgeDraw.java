@@ -28,7 +28,7 @@ public class DirectEdgeDraw  implements DrawSettings {
         this.AisStationMultyLine = AisStationMultyLine;
         this.BisStationMultyLine = BisStationMultyLine;
         paintComponent();
-        System.out.println(this.toString());
+        //System.out.println(this.toString());
     }
 
 

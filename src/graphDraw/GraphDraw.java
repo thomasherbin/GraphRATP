@@ -20,6 +20,7 @@ public class GraphDraw  implements DrawSettings {
 
         for (ArrayList<DirectEdge> stations : metroGraph.getMetroGraph()) {
             for (DirectEdge directEdge : stations) {
+                //System.out.println(directEdge.toString());
                 boolean AisStationMultyLine = isStationMultyLine(directEdge.getA());
                 boolean BisStationMultyLine = isStationMultyLine(directEdge.getB());
                 new DirectEdgeDraw(directEdge, AisStationMultyLine, BisStationMultyLine);

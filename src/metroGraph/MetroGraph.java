@@ -21,7 +21,7 @@ public class MetroGraph {
             String metroLineNum = directEdge.getMetroLine();
 
             addDirectEdge(A, B, metroLineNum);
-            addDirectEdge(B, A, metroLineNum);
+            //addDirectEdge(B, A, metroLineNum);
 
         }
     }

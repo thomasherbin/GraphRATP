@@ -1,5 +1,6 @@
 package data;
 
+import com.sun.org.apache.bcel.internal.generic.JsrInstruction;
 import metroGraph.Station;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -26,20 +27,104 @@ public class DataBuilder {
             if (ligne.get("type").equals("metro")) {
                 JSONArray arrets = (JSONArray) ligne.get("arrets");
                 String metroLineNum = (String) ligne.get("num");
-                arrets = (JSONArray) arrets.get(0);
-                lineGraph(stations, arrets, metroLineNum);
+                //System.out.println("metroLineNum : "+metroLineNum);
+                //System.out.println("arrets size : "+arrets.size());
+                if (metroLineNum.equals("10")) {
+                    lineGraph(stations,(JSONArray) arrets.get(0), metroLineNum, false);
+                    lineGraph(stations,arretsBuilderLigne10(arrets), metroLineNum, false);
+                } else if (metroLineNum.equals("7B")) {
+                    arrets = (JSONArray) arrets.get(0);
+                    arrets = (JSONArray) arretsBuilderLigne7B(arrets);
+                    lineGraph(stations,(JSONArray)arrets.get(0), metroLineNum, true);
+                    lineGraph(stations,(JSONArray)arrets.get(1), metroLineNum, false);
+                } else {
+                    for (int i = 0; i < arrets.size(); i++) {
+                        lineGraph(stations,(JSONArray) arrets.get(i), metroLineNum, true);
+                    }
+                }
             }
         }
     }
 
-    private void lineGraph(JSONObject stations, JSONArray arrets, String metroLineNum) {
+    private void lineGraph(JSONObject stations, JSONArray arrets, String metroLineNum,boolean multiDirection) {
         for (int i = 1; i < arrets.size(); i++) {
             int aStationId = Integer.parseInt(arrets.get(i - 1).toString());
             int bStationId = Integer.parseInt(arrets.get(i).toString());
             Station A = new Station(aStationId, stations);
             Station B = new Station(bStationId, stations);
             data.addEdge(A,B, metroLineNum);
+            if (multiDirection) {
+                data.addEdge(B,A, metroLineNum);
+            }
         }
+    }
+
+    private JSONArray arretsBuilderLigne7B(JSONArray arrets) {
+        JSONArray arretsBiDirectionel = new JSONArray();
+        JSONArray arretsUniDirectionel = new JSONArray();
+        boolean inUni = false;
+        //System.out.println(arrets.toString());
+        for (int i = 0; i < arrets.size(); i++) {
+            int stationId = Integer.parseInt(arrets.get(i).toString());
+            if (inUni) {
+                if (stationId == 2016) {
+                    inUni = false;
+                    arretsUniDirectionel.add((arrets.get(i)));
+                } else {
+                    arretsUniDirectionel.add((arrets.get(i)));
+                }
+
+            } else {
+                if (stationId == 2016) {
+                    inUni = true;
+                    arretsBiDirectionel.add(arrets.get(i));
+                    arretsUniDirectionel.add((arrets.get(i)));
+                } else {
+                    arretsBiDirectionel.add(arrets.get(i));
+                }
+            }
+        }
+        arrets.clear();
+        arrets.add(arretsBiDirectionel);
+        arrets.add(arretsUniDirectionel);
+        return arrets;
+    }
+
+    private JSONArray arretsBuilderLigne10(JSONArray arrets) {
+        JSONArray buffer = new JSONArray();
+        JSONArray firstDirection = (JSONArray) arrets.get(0);
+        JSONArray secondDirection = (JSONArray) arrets.get(1);
+        //System.out.println(firstDirection.toString());
+        //System.out.println(secondDirection.toString());
+
+        int k = 0;
+        boolean inSecondDirection = false;
+        for (int i = 0; i < firstDirection.size(); i++) {
+            int aStationId = Integer.parseInt(firstDirection.get(i).toString());
+            int bStationId = Integer.parseInt(secondDirection.get(k).toString());
+            //System.out.println("buffer : "+buffer.toString());
+            //System.out.println("a : "+aStationId+ " i : "+i);
+            //System.out.println("b : "+bStationId+ " k : "+ k);
+            if (inSecondDirection) {
+                if (aStationId == bStationId) {
+                    inSecondDirection = false;
+                    buffer.add(firstDirection.get(i));
+                } else {
+                    buffer.add(secondDirection.get(k));
+                    k++;
+                }
+            } else {
+                if (aStationId == bStationId) {
+                    inSecondDirection = true;
+                    buffer.add(firstDirection.get(i));
+                    k++;
+                } else {
+                    buffer.add(firstDirection.get(i));
+                }
+            }
+        }
+        secondDirection = buffer;
+        return secondDirection;
     }
 
     public Data getData() {
