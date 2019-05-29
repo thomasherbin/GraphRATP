@@ -40,8 +40,6 @@ public class DataBuilder {
             Station A = new Station(aStationId, stations);
             Station B = new Station(bStationId, stations);
             data.addEdge(A,B, metroLineNum);
-
-            Station.decrementOrderID();
         }
     }
 

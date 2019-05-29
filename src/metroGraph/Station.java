@@ -7,9 +7,13 @@ import java.util.Objects;
 
 public class Station {
     private int id;
-    private static int orderID = 0;
+
+    private int stationOrder;
+    private static int order = 0;
 
     private String name;
+    private static ArrayList<String> allStationsNames = new ArrayList<>();
+
     private double lat;
     private double lon;
 
@@ -18,10 +22,17 @@ public class Station {
         this.id = id;
         JSONObject st = (JSONObject) stations.get(Integer.toString(id));
         this.name = (String) st.get("nom");
+
         this.lat = Double.parseDouble((String) st.get("lat"));
         this.lon = Double.parseDouble((String) st.get("lng"));
 
-        this.orderID++;
+        if (!allStationsNames.contains(this.name)) {
+            allStationsNames.add(this.name);
+            this.stationOrder = this.order;
+            this.order++;
+        } else {
+            this.stationOrder = allStationsNames.indexOf(this.name);
+        }
     }
 
 
@@ -51,13 +62,18 @@ public class Station {
     }
 
 
-    public static int getOrderID() {
-        return orderID;
+    public static int getOrder() {
+        return order;
     }
 
     public static void decrementOrderID() {
-        orderID--;
+        order--;
     }
+
+    public int getStationOrder() {
+        return stationOrder;
+    }
+
 
 
     @Override
