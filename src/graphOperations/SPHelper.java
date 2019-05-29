@@ -1,5 +1,6 @@
 package graphOperations;
 
+import metroGraph.DirectEdge;
 import metroGraph.MetroGraph;
 import metroGraph.Station;
 
@@ -11,13 +12,25 @@ import java.util.Iterator;
 public class SPHelper {
 
     private boolean[] marked;
-    private Station[] previous;
+    private int[] previous;
+    private String[] previousName;
     private int[] distance;
 
-    public SPHelper(MetroGraph dg) {
-        marked = new boolean[dg.getOrder()];
-        previous = new Station[dg.getOrder()];
-        distance = new int[dg.getOrder()];
+    private MetroGraph copyMg;
+
+    private ArrayList<Integer> BFSList;
+
+    public SPHelper(MetroGraph mg) {
+        this.marked = new boolean[mg.getOrder()];
+        this.previous = new int[mg.getOrder()];
+        this.previousName = new String[mg.getOrder()];
+        this.distance = new int[mg.getOrder()];
+
+        this.copyMg = mg;
+        System.out.println("Size copymg : " + copyMg.getMetroGraph().size());
+        System.out.println("Order copymg : " + copyMg.getOrder());
+
+        this.BFSList = new ArrayList<>();
     }
 
 
@@ -26,12 +39,13 @@ public class SPHelper {
      * BFS algorithm
      *
      */
-    public void BFS(MetroGraph mg, int start) {
+    public void BFS(int start) {
         ArrayList<Integer> queue = new ArrayList<>();
 
         marked[start-1] = true;
         distance[start-1] = 0;
-        previous[start-1] = null;
+        previous[start-1] = -1;
+        previousName[start-1] = "No previous station";
 
         queue.add(start);
 
@@ -39,48 +53,53 @@ public class SPHelper {
             int currentNode = queue.get(0);
             queue.remove(queue.get(0));
 
-            mg.getBFSResult().add(currentNode);
+            BFSList.add(currentNode);
 
-            Iterator<Integer> i = mg.getNeighbors().get(currentNode-1).listIterator();
+            Iterator<DirectEdge> i = copyMg.getMetroGraph().get(currentNode).listIterator();
 
             while (i.hasNext()) {
-                int neighbor = i.next();
+                DirectEdge neighboringStations = i.next();
 
-                if (!marked[neighbor-1]) {
-                    marked[neighbor-1] = true;
-                    previous[neighbor-1] = currentNode;
-                    distance[neighbor-1] = distance[previous[neighbor-1] - 1] + 1;
+                Station neighbor = neighboringStations.getB();
+                int neighborID = neighbor.getStationOrder();
+                String neighborName = neighbor.getName();
 
-                    queue.add(neighbor);
+                if (!marked[neighborID]) {
+                    marked[neighborID] = true;
+                    previous[neighborID] = currentNode;
+                    previousName[neighborID] = neighborName;
+                    distance[neighborID] = distance[previous[neighborID]] + 1;
+
+                    queue.add(neighborID);
                 }
 
             }
         }
 
-        for(int i=0; i<mg.getOrder(); i++) {
-            if (previous[i] == 0 && !marked[i]) {
+        for(int i=0; i<copyMg.getOrder(); i++) {
+            if (previous[i] == -1 && !marked[i]) {
                 distance[i] = -1;
             }
         }
 
-        System.out.println("BFS : " + Arrays.toString(mg.getBFSResult().toArray()));
+        System.out.println("BFS : " + Arrays.toString(BFSList.toArray()));
         System.out.println("Visited/Marked for each node starting from vertex " + start + " : " + Arrays.toString(marked));
         System.out.println("Distance for each node from vertex " + start + " : " + Arrays.toString(distance));
         System.out.println("Previous node for each node starting from vertex " + start + " : " + Arrays.toString(previous));
 
-        for(int i=1; i<=mg.getOrder(); i++) {
-            System.out.println("Is there a path from " + start + " to " + i + " ? " + hasPathTo(i) );
-            System.out.println("Path from " + start + " to " + i + " is : " + printSP(i) + " (Distance = " + distTo(i) + ")" );
+        for(int i=0; i<copyMg.getOrder(); i++) {
+            System.out.println("Is there a path from " + previousName[start] + " to " + previousName[i] + " ? " + hasPathTo(i) );
+            System.out.println("Path from " + previousName[start] + " to " + previousName[i] + " is : " + printSP(i) + " (Distance = " + distTo(i) + ")" );
         }
     }
 
 
     public boolean hasPathTo(int v) {
-        return this.marked[v-1];
+        return this.marked[v];
     }
 
     public int distTo(int v) {
-        return this.distance[v-1];
+        return this.distance[v];
     }
 
 
@@ -88,30 +107,26 @@ public class SPHelper {
     /**
      * printSP method
      *
-     * We rebuild the path thanks to the previous array, which is itself built based
+     * We rebuild the path thanks to the 'previous' array, which is itself built based
      * on the shortest distance. Once we have the list, we reverse it to have the actual shortest path
      *
      */
     public String printSP(int v) {
-        ArrayList<Integer> shortpath = new ArrayList<>();
-        shortpath.add(v);
+        ArrayList<String> shortpath = new ArrayList<>();
+        shortpath.add(previousName[v]);
 
-        int prevNode = previous[v-1];
+        int prevNode = previous[v];
 
-        for(int i=1; i <= distTo(v); i++) {
-            if (prevNode < 0) {
+        for (int i = 1; i <= distTo(v); i++) {
+            if (prevNode == -1) {
                 break;
             }
-            shortpath.add(prevNode);
-            prevNode = previous[prevNode-1];
+            shortpath.add(previousName[prevNode]);
+            prevNode = previous[prevNode];
         }
         Collections.reverse(shortpath);
 
-        //if there is no path we remove the default entry in the list (default entry = destination node)
-        if(distTo(v) == -1) {
-            shortpath.clear();
-        }
-
         return Arrays.toString(shortpath.toArray());
+    }
 
 }
