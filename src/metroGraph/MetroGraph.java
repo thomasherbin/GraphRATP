@@ -30,7 +30,7 @@ public class MetroGraph {
 
     public void addDirectEdge(Station A, Station B, String metroLineNum) {
         //compute order based on the highest station id
-        this.graphOrder = Station.getOrderID() > this.graphOrder ? Station.getOrderID() : this.graphOrder;
+        this.graphOrder = Station.getOrder() > this.graphOrder ? Station.getOrder() : this.graphOrder;
 
         boolean containsVertex = false;
         for (ArrayList<DirectEdge> directedEdges : metroGraph) {
