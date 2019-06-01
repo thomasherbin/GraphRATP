@@ -97,9 +97,9 @@ public class DataBuilder {
         //System.out.println(firstDirection.toString());
         //System.out.println(secondDirection.toString());
 
-        int k = 0;
+        int k = secondDirection.size()-1;
         boolean inSecondDirection = false;
-        for (int i = 0; i < firstDirection.size(); i++) {
+        for (int i = firstDirection.size()-1; i >= 0; i--) {
             int aStationId = Integer.parseInt(firstDirection.get(i).toString());
             int bStationId = Integer.parseInt(secondDirection.get(k).toString());
             //System.out.println("buffer : "+buffer.toString());
@@ -111,13 +111,13 @@ public class DataBuilder {
                     buffer.add(firstDirection.get(i));
                 } else {
                     buffer.add(secondDirection.get(k));
-                    k++;
+                    k--;
                 }
             } else {
                 if (aStationId == bStationId) {
                     inSecondDirection = true;
                     buffer.add(firstDirection.get(i));
-                    k++;
+                    k--;
                 } else {
                     buffer.add(firstDirection.get(i));
                 }

@@ -1,3 +1,5 @@
+
+
 import data.Data;
 import data.DataBuilder;
 import metroGraph.Dijkstra;
@@ -24,6 +26,8 @@ class MetroGraphTest {
     void dijkstra() throws Exception {
         DataBuilder data = new DataBuilder();
         MetroGraph metroGraph = new MetroGraph(data.getData());
-        Dijkstra dijkstra = new Dijkstra(metroGraph, metroGraph.getMetroGraph().get(0).get(0).getA());
+        Dijkstra dijkstra = new Dijkstra(metroGraph, metroGraph.getStation(0), metroGraph.getStation(50));
+        //System.out.println(dijkstra.printFullSP());
+        System.out.println(dijkstra.printShortSP());
     }
 }

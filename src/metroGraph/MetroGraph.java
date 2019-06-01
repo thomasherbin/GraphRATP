@@ -85,6 +85,16 @@ public class MetroGraph {
         return -1;
     }
 
+    public DirectEdge getDirectEdge(Station v, Station w) {
+        for (DirectEdge directEdge : stationDirectEdge(v)) {
+            if (directEdge.getB().getId() == w.getId()) {
+                return directEdge;
+            }
+        }
+        return null;
+    }
+
+
     public ArrayList<ArrayList<DirectEdge>> getMetroGraph() {
         return metroGraph;
     }
