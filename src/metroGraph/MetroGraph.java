@@ -1,6 +1,7 @@
 package metroGraph;
 
 import data.Data;
+import data.DataBuilder;
 
 import java.util.ArrayList;
 
@@ -10,8 +11,10 @@ public class MetroGraph {
     private int stationNumber;
     private int directEdgeNumber;
 
-    public MetroGraph(Data data) {
+    public MetroGraph() throws Exception {
         this.metroGraph = new ArrayList<>();
+        DataBuilder dataToBuild = new DataBuilder();
+        Data data = dataToBuild.getData();
 
         for (DirectEdge directEdge : data.getData()) {
 
