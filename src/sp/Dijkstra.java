@@ -1,4 +1,8 @@
-package metroGraph;
+package sp;
+
+import metroGraph.DirectEdge;
+import metroGraph.MetroGraph;
+import metroGraph.Station;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +39,7 @@ public class Dijkstra {
         //System.out.println(this.printArrays());
 
 
-        while (!allMarked()) {
+        while (!allMarked() && node != null) {
             //System.out.println("Dijkstra list : "+this.toString());
             //System.out.println("Neighbors of current Node : "+G.neighbors(node).toString());
 
@@ -90,7 +94,11 @@ public class Dijkstra {
                 min = Math.min(min, distance[i]);
             }
         }
-        return metroGraph.getStation(nodePos);
+        if (distance[nodePos] == Double.POSITIVE_INFINITY) {
+            return null;
+        } else {
+            return metroGraph.getStation(nodePos);
+        }
     }
 
     public boolean hasPathTo(int pos) {
