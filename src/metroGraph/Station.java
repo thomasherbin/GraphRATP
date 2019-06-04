@@ -6,18 +6,32 @@ import java.util.Objects;
 
 public class Station {
     private int id;
+
+    private int stationOrder;
+    private static int order = 0;
+
     private String name;
+    private static ArrayList<String> allStationsNames = new ArrayList<>();
+
     private double lat;
     private double lon;
-
 
 
     public Station(int id,JSONObject stations) {
         this.id = id;
         JSONObject st = (JSONObject) stations.get(Integer.toString(id));
         this.name = (String) st.get("nom");
+
         this.lat = Double.parseDouble((String) st.get("lat"));
         this.lon = Double.parseDouble((String) st.get("lng"));
+
+        if (!allStationsNames.contains(this.name)) {
+            allStationsNames.add(this.name);
+            this.stationOrder = this.order;
+            this.order++;
+        } else {
+            this.stationOrder = allStationsNames.indexOf(this.name);
+        }
     }
 
 
@@ -44,6 +58,20 @@ public class Station {
     public void setId(int id) {
         this.id = id;
     }
+
+
+    public static int getOrder() {
+        return order;
+    }
+
+    public static void decrementOrderID() {
+        order--;
+    }
+
+    public int getStationOrder() {
+        return stationOrder;
+    }
+
 
 
     @Override

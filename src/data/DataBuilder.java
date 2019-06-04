@@ -13,12 +13,13 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class DataBuilder {
-    private final String DATA_PATH = "D:\\chewi\\Documents\\Ecole\\Isep\\a2\\[II.2315] Algorithmique et programmation avancée\\GraphRATP\\data";
+//    private final String DATA_PATH = "D:\\chewi\\Documents\\Ecole\\Isep\\a2\\[II.2315] Algorithmique et programmation avancée\\GraphRATP\\data";
+    private final String DATA_PATH = "/home/paul/Work/GraphRATP/data";
     private Data data;
 
     public DataBuilder() throws Exception{
         this.data = new Data();
-        File metroDataPath = new File(DATA_PATH+ "\\reseau.json");
+        File metroDataPath = new File(DATA_PATH+ "/reseau.json");
         JSONObject reseau = (JSONObject) new JSONParser().parse(new FileReader(metroDataPath));
         JSONObject stations = (JSONObject) reseau.get("stations");
         Iterator<Map.Entry> lignes = ((Map)reseau.get("lignes")).entrySet().iterator();
