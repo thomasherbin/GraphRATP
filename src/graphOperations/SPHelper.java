@@ -21,14 +21,14 @@ public class SPHelper {
     private ArrayList<Integer> BFSList;
 
     public SPHelper(MetroGraph mg) {
-        this.marked = new boolean[mg.getOrder()];
-        this.previous = new int[mg.getOrder()];
-        this.previousName = new String[mg.getOrder()];
-        this.distance = new int[mg.getOrder()];
+        this.marked = new boolean[mg.getStationNumber()];
+        this.previous = new int[mg.getStationNumber()];
+        this.previousName = new String[mg.getStationNumber()];
+        this.distance = new int[mg.getStationNumber()];
 
         this.copyMg = mg;
         System.out.println("Size copymg : " + copyMg.getMetroGraph().size());
-        System.out.println("Order copymg : " + copyMg.getOrder());
+        System.out.println("Order copymg : " + copyMg.getStationNumber());
 
         this.BFSList = new ArrayList<>();
     }
@@ -76,7 +76,7 @@ public class SPHelper {
             }
         }
 
-        for(int i=0; i<copyMg.getOrder(); i++) {
+        for(int i=0; i<copyMg.getStationNumber(); i++) {
             if (previous[i] == -1 && !marked[i]) {
                 distance[i] = -1;
             }
@@ -87,7 +87,7 @@ public class SPHelper {
         System.out.println("Distance for each node from vertex " + start + " : " + Arrays.toString(distance));
         System.out.println("Previous node for each node starting from vertex " + start + " : " + Arrays.toString(previous));
 
-        for(int i=0; i<copyMg.getOrder(); i++) {
+        for(int i=0; i<copyMg.getStationNumber(); i++) {
             System.out.println("Is there a path from " + previousName[start] + " to " + previousName[i] + " ? " + hasPathTo(i) );
             System.out.println("Path from " + previousName[start] + " to " + previousName[i] + " is : " + printSP(i) + " (Distance = " + distTo(i) + ")" );
         }
