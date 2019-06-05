@@ -61,7 +61,7 @@ public class SPHelper {
                 DirectEdge neighboringStations = i.next();
 
                 Station neighbor = neighboringStations.getB();
-                int neighborID = neighbor.getStationOrder();
+                int neighborID = neighbor.getStationPosition();
                 String neighborName = neighbor.getName();
 
                 if (!marked[neighborID]) {

@@ -6,13 +6,8 @@ import java.util.Objects;
 
 public class Station {
     private int id;
-
-    private int stationOrder;
-    private static int order = 0;
-
+    private int stationPosition;
     private String name;
-    private static ArrayList<String> allStationsNames = new ArrayList<>();
-
     private double lat;
     private double lon;
 
@@ -21,21 +16,17 @@ public class Station {
         this.id = id;
         JSONObject st = (JSONObject) stations.get(Integer.toString(id));
         this.name = (String) st.get("nom");
-
         this.lat = Double.parseDouble((String) st.get("lat"));
         this.lon = Double.parseDouble((String) st.get("lng"));
-
-        if (!allStationsNames.contains(this.name)) {
-            allStationsNames.add(this.name);
-            this.stationOrder = this.order;
-            this.order++;
-        } else {
-            this.stationOrder = allStationsNames.indexOf(this.name);
-        }
     }
 
+    public int getStationPosition() {
+        return stationPosition;
+    }
 
-
+    public void setStationPosition(int stationPosition) {
+        this.stationPosition = stationPosition;
+    }
 
     public int getId() {
         return id;
@@ -60,23 +51,13 @@ public class Station {
     }
 
 
-    public static int getOrder() {
-        return order;
-    }
 
-    public static void decrementOrderID() {
-        order--;
-    }
-
-    public int getStationOrder() {
-        return stationOrder;
-    }
 
 
 
     @Override
     public String toString() {
-        return name;
+        return name + " (id : "+ stationPosition+")";
     }
 
     @Override
