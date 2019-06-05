@@ -2,6 +2,7 @@ package graphDraw;
 
 import data.DataBuilder;
 import edu.princeton.cs.introcs.StdDraw;
+import graphOperations.Dijkstra;
 import metroGraph.DirectEdge;
 import metroGraph.*;
 
@@ -15,7 +16,7 @@ public class GraphDraw  implements DrawSettings {
         StdDraw.setXscale(0, frameWidth);
         StdDraw.setYscale(0, frameHeight);
 
-        this.metroGraph = new MetroGraph();
+        this.metroGraph = new MetroGraphUtil();
 
         for (ArrayList<DirectEdge> stations : metroGraph.getMetroGraph()) {
             for (DirectEdge directEdge : stations) {

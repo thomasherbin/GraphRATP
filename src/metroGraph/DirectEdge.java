@@ -31,6 +31,6 @@ public class DirectEdge {
 
     @Override
     public String toString() {
-        return "{" + A.toString() + " (ID : " + A.getStationOrder() + "), " + B.toString() + " (ID : " + B.getStationOrder() + ")}";
+        return "{" + A.toString() + " , " + B.toString() + ")}";
     }
 }

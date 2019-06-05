@@ -1,36 +1,48 @@
-package sp;
+package graphOperations;
 
-import metroGraph.DirectEdge;
 import metroGraph.MetroGraph;
 import metroGraph.Station;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Dijkstra {
-    private MetroGraph metroGraph;
+public class Dijkstra extends MetroGraph {
     private boolean[] marked;
     private Station[] previous;
     private double[] distance;
     private Station startNode;
     private Station endNode;
+    private int endNodePos;
+    private int startNodePos;
     private ArrayList<Station> dijkstraList;
 
+    public Dijkstra() throws Exception {
 
+    }
 
+    public Dijkstra(int startNodePos) throws Exception {
+        this.startNodePos = startNodePos;
+        this.startNode = getStation(startNodePos);
+        dijkstraAlgorithm();
+    }
 
-    public Dijkstra(MetroGraph G, Station startNode, Station endNode) {
-        this.metroGraph = G;
-        this.startNode = startNode;
-        this.endNode = endNode;
-        this.dijkstraList = new ArrayList<>();
+    public Dijkstra(int startNodePos, int endNodePos) throws Exception {
+        this.startNodePos = startNodePos;
+        this.startNode = getStation(startNodePos);
+        this.endNodePos = endNodePos;
+        this.endNode = getStation(endNodePos);
+        dijkstraAlgorithm();
 
+    }
+
+    private void dijkstraAlgorithm() {
         //Initialisation
         Station node = startNode;
-        int nodePos = G.getPosition(node);
-        this.marked = new boolean[G.getStationNumber()];
-        this.previous = new Station[G.getStationNumber()];
-        this.distance = new double[G.getStationNumber()];
+        int nodePos = startNodePos;
+        this.dijkstraList = new ArrayList<>();
+        this.marked = new boolean[getStationNumber()];
+        this.previous = new Station[getStationNumber()];
+        this.distance = new double[getStationNumber()];
         dijkstraList.add(node);
         for (int i = 0; i < distance.length; i++) { distance[i]= Double.POSITIVE_INFINITY; }
         distance[nodePos] = 0;
@@ -43,12 +55,12 @@ public class Dijkstra {
             //System.out.println("Dijkstra list : "+this.toString());
             //System.out.println("Neighbors of current Node : "+G.neighbors(node).toString());
 
-            for (Station neighbor : G.neighbors(node)) {
-                int neighborPos = G.getPosition(neighbor);
+            for (Station neighbor : neighbors(node)) {
+                int neighborPos = neighbor.getStationPosition();
                 //System.out.println("Neighbor position : "+neighborPos);
                 if (!marked[neighborPos]) {
-                    if (distance[neighborPos] > distance[nodePos] + G.getWeightDirectEdge(node, neighbor)) {
-                        distance[neighborPos] = distance[nodePos] + G.getWeightDirectEdge(node, neighbor);
+                    if (distance[neighborPos] > distance[nodePos] + getWeightDirectEdge(node, neighbor)) {
+                        distance[neighborPos] = distance[nodePos] + getWeightDirectEdge(node, neighbor);
                         previous[neighborPos] = node;
                         //System.out.println(this.distance[nodePos]+ " + "+G.getWeightDirectEdge(node,neighbor) + " "+ this.distance[neighborPos]);
                         //System.out.println("Distance chosen : "+this.distance[neighborPos]);
@@ -58,7 +70,7 @@ public class Dijkstra {
 
             marked[nodePos] = true;
             node = nextNode();
-            nodePos = G.getPosition(node);
+            nodePos = node.getStationPosition();
             dijkstraList.add(node);
 
             //System.out.println(this.toString());
@@ -97,7 +109,7 @@ public class Dijkstra {
         if (distance[nodePos] == Double.POSITIVE_INFINITY) {
             return null;
         } else {
-            return metroGraph.getStation(nodePos);
+            return getStation(nodePos);
         }
     }
 
@@ -110,21 +122,21 @@ public class Dijkstra {
     }
 
     public double distTo() {
-        return distance[metroGraph.getPosition(endNode)];
+        return distance[endNodePos];
     }
 
-    private ArrayList<Station> SP() {
-        int vPos = metroGraph.getPosition(endNode);
+    public ArrayList<Station> SP() {
+        int vPos = endNodePos;
         ArrayList<Station> SP = new ArrayList<>();
         if (this.hasPathTo(vPos)) {
             Station i = this.previous[vPos];
-            int iPos = metroGraph.getPosition(i);
+            int iPos = i.getStationPosition();
             ArrayList<Station> SPr = new ArrayList<>();
             SPr.add(endNode);
             SPr.add(i);
-            while (iPos != metroGraph.getPosition(startNode)) {
+            while (iPos != startNodePos) {
                 i = this.previous[iPos];
-                iPos = metroGraph.getPosition(this.previous[iPos]);
+                iPos = this.previous[iPos].getStationPosition();
                 if (iPos != 0) {
                     SPr.add(i);
                 }
@@ -137,59 +149,7 @@ public class Dijkstra {
         return SP;
     }
 
-    private ArrayList<DirectEdge> directEdgeSP() {
-        ArrayList<Station> SP = SP();
-        ArrayList<DirectEdge> directEdgeSP = new ArrayList<>();
-        if (!SP.isEmpty()) {
-            for (int i = 1; i < SP.size(); i++) {
-                Station A = SP.get(i - 1);
-                Station B = SP.get(i);
-                directEdgeSP.add(metroGraph.getDirectEdge(A, B));
-            }
-        }
-        return directEdgeSP;
-    }
 
-    public String printFullSP() {
-        String str = "";
-        ArrayList<Station> SP = SP();
-        if (!SP.isEmpty()) {
-            str += "Shortest path from "+startNode.getName()+" to "+endNode.getName()+" :";
-            for (Station station : SP) {
-                str +=" -> "+ station.toString();
-            }
-            str +="\nDistance : "+ distTo();
-        } else {
-            str +="No link between this two nodes";
-        }
-        return str;
-    }
-
-    public String printShortSP() {
-        String str = "";
-        ArrayList<DirectEdge> directEdgeSP = directEdgeSP();
-        if (!directEdgeSP.isEmpty()) {
-            str += "Shortest path from "+startNode.getName()+" to "+endNode.getName()+" :\n";
-            String metroLineNum = directEdgeSP.get(0).getMetroLine();
-            str += "Ligne "+ metroLineNum + " : ";
-            str += directEdgeSP.get(0).getA().toString() + " -> ";
-            int i = 1;
-            while (i <= directEdgeSP.size()-1) {
-                if (!directEdgeSP.get(i).getMetroLine().equals(metroLineNum)) {
-                    metroLineNum = directEdgeSP.get(i).getMetroLine();
-                    str += directEdgeSP.get(i-1).getB().toString() + "\n";
-                    str += "Ligne "+ metroLineNum + " : ";
-                    str += directEdgeSP.get(i).getA().toString() + " -> ";
-                }
-                i++;
-            }
-            str += directEdgeSP.get(directEdgeSP.size()-1).getB().toString() + "\n";
-            str +="Distance : "+ distTo();
-        } else {
-            str +="No link between this two nodes";
-        }
-        return str;
-    }
 
     private String printArrays() {
         return "marked=" + Arrays.toString(marked) + ",\nprevious=" + Arrays.toString(previous) +",\ndistance=" + Arrays.toString(distance) ;

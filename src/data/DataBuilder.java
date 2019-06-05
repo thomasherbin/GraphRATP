@@ -13,8 +13,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class DataBuilder {
-//    private final String DATA_PATH = "D:\\chewi\\Documents\\Ecole\\Isep\\a2\\[II.2315] Algorithmique et programmation avancée\\GraphRATP\\data";
-    private final String DATA_PATH = "/home/paul/Work/GraphRATP/data";
+    private final String DATA_PATH = "D:\\chewi\\Documents\\Ecole\\Isep\\a2\\[II.2315] Algorithmique et programmation avancée\\GraphRATP\\data";
+    //private final String DATA_PATH = "/home/paul/Work/GraphRATP/data";
     private Data data;
 
     public DataBuilder() throws Exception{
