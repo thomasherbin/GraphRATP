@@ -58,7 +58,8 @@ class MetroGraphTest {
         MetroGraph metroGraph = new Dijkstra();
 
         SPHelper sp = new SPHelper(metroGraph);
-        sp.BFS(122);
+//        sp.BFS(122);
+        sp.BFS(0, 168);
     }
 
 }
