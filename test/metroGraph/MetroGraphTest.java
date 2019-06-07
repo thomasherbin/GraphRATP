@@ -1,5 +1,6 @@
 package metroGraph;
 
+import graphOperations.BFS;
 import graphOperations.SPHelper;
 import org.junit.jupiter.api.Test;
 import graphOperations.Dijkstra;
@@ -9,13 +10,13 @@ import java.util.ArrayList;
 class MetroGraphTest {
     @Test
     void printGraph() throws Exception{
-        MetroGraph metroGraph = new MetroGraphUtil();
+        MetroGraph metroGraph = new MetroGraph();
         System.out.println(metroGraph.toString());
     }
 
     @Test
     void graph() throws Exception {
-        MetroGraph metroGraph = new MetroGraphUtil();
+        MetroGraph metroGraph = new MetroGraph();
     }
 
     @Test
@@ -26,8 +27,17 @@ class MetroGraphTest {
     }
 
     @Test
+    void bfs() throws Exception {
+        BFS bfs = new BFS(0, 50);
+        System.out.println(bfs.toString());
+        System.out.println(bfs.printShortSP());
+    }
+
+
+
+    @Test
     void printGraph2() throws Exception{
-        MetroGraph metroGraph = new MetroGraphUtil();
+        MetroGraph metroGraph = new MetroGraph();
 
         System.out.println("Order : " + metroGraph.getStationNumber() + " | Size : " + metroGraph.getDirectEdgeNumber());
         System.out.println("DirectEdges : " + metroGraph.getMetroGraph().size());
@@ -38,7 +48,7 @@ class MetroGraphTest {
 
     @Test
     void printStationAndIDs() throws Exception {
-        MetroGraph metroGraph = new MetroGraphUtil();
+        MetroGraph metroGraph = new MetroGraph();
 
         ArrayList<ArrayList<DirectEdge>> mg = metroGraph.getMetroGraph();
 

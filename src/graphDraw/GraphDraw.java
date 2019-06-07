@@ -16,7 +16,7 @@ public class GraphDraw  implements DrawSettings {
         StdDraw.setXscale(0, frameWidth);
         StdDraw.setYscale(0, frameHeight);
 
-        this.metroGraph = new MetroGraphUtil();
+        this.metroGraph = new MetroGraph();
 
         for (ArrayList<DirectEdge> stations : metroGraph.getMetroGraph()) {
             for (DirectEdge directEdge : stations) {
