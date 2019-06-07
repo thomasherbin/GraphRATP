@@ -1,5 +1,6 @@
 package graphOperations;
 
+import metroGraph.MetroGraph;
 import metroGraph.Station;
 
 import java.util.ArrayList;
@@ -25,6 +26,12 @@ public class Dijkstra extends SP {
         dijkstraAlgorithm();
     }
 
+    public Dijkstra(MetroGraph G, int startNodePos, int endNodePos)  {
+        super(startNodePos, endNodePos ,G);
+        this.dijkstraList = new ArrayList<>();
+        dijkstraAlgorithm();
+    }
+
 
 
     private void dijkstraAlgorithm() {
@@ -36,11 +43,11 @@ public class Dijkstra extends SP {
         distance[nodePos] = 0;
 
         while (!allMarked() && distance[nodePos] != Double.POSITIVE_INFINITY) {
-            for (Station neighbor : neighbors(node)) {
+            for (Station neighbor : G.neighbors(node)) {
                 int neighborPos = neighbor.getStationPosition();
                 if (!marked[neighborPos]) {
-                    if (distance[neighborPos] > distance[nodePos] + getWeightDirectEdge(node, neighbor)) {
-                        distance[neighborPos] = distance[nodePos] + getWeightDirectEdge(node, neighbor);
+                    if (distance[neighborPos] > distance[nodePos] + G.getWeightDirectEdge(node, neighbor)) {
+                        distance[neighborPos] = distance[nodePos] + G.getWeightDirectEdge(node, neighbor);
                         previous[neighborPos] = node;
                     }
                 }
@@ -77,7 +84,7 @@ public class Dijkstra extends SP {
                 min = Math.min(min, distance[i]);
             }
         }
-        return getStation(nodePos);
+        return G.getStation(nodePos);
     }
 
 

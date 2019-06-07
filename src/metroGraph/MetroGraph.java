@@ -17,7 +17,6 @@ public class MetroGraph {
         this.metroGraph = new ArrayList<>();
         DataBuilder dataToBuild = new DataBuilder();
         Data data = dataToBuild.getData();
-
         for (DirectEdge directEdge : data.getData()) {
 
             //Get nodes
@@ -34,6 +33,8 @@ public class MetroGraph {
             }
         }
     }
+
+
 
     private void addDirectEdge(Station A, Station B, String metroLineNum) {
         boolean containsVertex = false;

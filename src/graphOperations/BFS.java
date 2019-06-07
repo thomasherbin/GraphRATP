@@ -1,5 +1,7 @@
 package graphOperations;
 
+import data.Data;
+import metroGraph.MetroGraph;
 import metroGraph.Station;
 
 import java.util.ArrayList;
@@ -27,6 +29,12 @@ public class BFS extends SP {
         bfsAlgorithm();
     }
 
+    public BFS(MetroGraph G, int startNodePos, int endNodePos)  {
+        super(startNodePos, endNodePos ,G);
+        this.bfsList = new ArrayList<>();
+        bfsAlgorithm();
+    }
+
 
     private void bfsAlgorithm() {
 
@@ -47,7 +55,7 @@ public class BFS extends SP {
             bfsList.add(node);
 
 
-            for (Station neighbor : neighbors(node)) {
+            for (Station neighbor : G.neighbors(node)) {
                 int neighborPos = neighbor.getStationPosition();
                 if (!marked[neighborPos]) {
                     marked[neighborPos] = true;
@@ -57,7 +65,6 @@ public class BFS extends SP {
                 }
             }
         }
-
 
     }
 

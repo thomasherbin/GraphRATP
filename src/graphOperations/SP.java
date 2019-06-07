@@ -1,5 +1,6 @@
 package graphOperations;
 
+import data.Data;
 import metroGraph.DirectEdge;
 import metroGraph.MetroGraph;
 import metroGraph.Station;
@@ -8,7 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class SP extends MetroGraph {
+public class SP {
+    MetroGraph G;
     boolean[] marked;
     Station[] previous;
     double[] distance;
@@ -18,34 +20,50 @@ public class SP extends MetroGraph {
     int startNodePos;
 
     public SP() throws Exception {
+        this.G = new MetroGraph();
         this.startNodePos = 0;
-        this.startNode = getStation(startNodePos);
-        this.endNodePos = stationNumber;
-        this.endNode = getStation(endNodePos);
-        this.marked = new boolean[stationNumber];
-        this.previous = new Station[stationNumber];
-        this.distance = new double[stationNumber];
+        this.startNode = G.getStation(startNodePos);
+        this.endNodePos = G.stationNumber;
+        this.endNode = G.getStation(endNodePos);
+        this.marked = new boolean[G.getStationNumber()];
+        this.previous = new Station[G.getStationNumber()];
+        this.distance = new double[G.getStationNumber()];
     }
 
     public SP(int startNodePos) throws Exception {
+        this.G = new MetroGraph();
         this.startNodePos = startNodePos;
-        this.startNode = getStation(startNodePos);
-        this.endNodePos = stationNumber;
-        this.endNode = getStation(endNodePos);
-        this.marked = new boolean[stationNumber];
-        this.previous = new Station[stationNumber];
-        this.distance = new double[stationNumber];
+        this.startNode = G.getStation(startNodePos);
+        this.endNodePos = G.stationNumber;
+        this.endNode = G.getStation(endNodePos);
+        this.marked = new boolean[G.getStationNumber()];
+        this.previous = new Station[G.getStationNumber()];
+        this.distance = new double[G.getStationNumber()];
     }
 
     public SP(int startNodePos, int endNodePos) throws Exception {
+        this.G = new MetroGraph();
         this.startNodePos = startNodePos;
-        this.startNode = getStation(startNodePos);
+        this.startNode = G.getStation(startNodePos);
         this.endNodePos = endNodePos;
-        this.endNode = getStation(endNodePos);
-        this.marked = new boolean[stationNumber];
-        this.previous = new Station[stationNumber];
-        this.distance = new double[stationNumber];
+        this.endNode = G.getStation(endNodePos);
+        this.marked = new boolean[G.getStationNumber()];
+        this.previous = new Station[G.getStationNumber()];
+        this.distance = new double[G.getStationNumber()];
     }
+
+    public SP(int startNodePos, int endNodePos, MetroGraph G)  {
+        this.G = G;
+        this.startNodePos = startNodePos;
+        this.startNode = G.getStation(startNodePos);
+        this.endNodePos = endNodePos;
+        this.endNode = G.getStation(endNodePos);
+        this.marked = new boolean[G.getStationNumber()];
+        this.previous = new Station[G.getStationNumber()];
+        this.distance = new double[G.getStationNumber()];
+    }
+
+
 
 
 
@@ -79,7 +97,7 @@ public class SP extends MetroGraph {
             for (int i = 1; i < path.size(); i++) {
                 Station A = path.get(i - 1);
                 Station B = path.get(i);
-                directEdgeSP.add(getDirectEdge(A, B));
+                directEdgeSP.add(G.getDirectEdge(A, B));
             }
         }
         return directEdgeSP;

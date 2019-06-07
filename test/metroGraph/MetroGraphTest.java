@@ -1,7 +1,6 @@
 package metroGraph;
 
 import graphOperations.BFS;
-import graphOperations.SPHelper;
 import org.junit.jupiter.api.Test;
 import graphOperations.Dijkstra;
 
@@ -63,13 +62,6 @@ class MetroGraphTest {
     }
 
 
-    @Test
-    void BFSShortestPathTest() throws Exception {
-        MetroGraph metroGraph = new Dijkstra();
 
-        SPHelper sp = new SPHelper(metroGraph);
-//        sp.BFS(122);
-        sp.BFS(0, 168);
-    }
 
 }
