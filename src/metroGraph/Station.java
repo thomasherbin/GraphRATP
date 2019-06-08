@@ -57,7 +57,11 @@ public class Station {
 
     @Override
     public String toString() {
-        return name + " (id : "+ stationPosition+")";
+        return //name
+                ""
+                +" (id : "
+                + stationPosition
+                +")";
     }
 
     @Override

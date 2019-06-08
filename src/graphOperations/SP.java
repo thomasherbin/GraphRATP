@@ -23,7 +23,7 @@ public class SP {
         this.G = new MetroGraph();
         this.startNodePos = 0;
         this.startNode = G.getStation(startNodePos);
-        this.endNodePos = G.stationNumber;
+        this.endNodePos = G.stationNumber-1;
         this.endNode = G.getStation(endNodePos);
         this.marked = new boolean[G.getStationNumber()];
         this.previous = new Station[G.getStationNumber()];
@@ -34,7 +34,7 @@ public class SP {
         this.G = new MetroGraph();
         this.startNodePos = startNodePos;
         this.startNode = G.getStation(startNodePos);
-        this.endNodePos = G.stationNumber;
+        this.endNodePos = G.stationNumber-1;
         this.endNode = G.getStation(endNodePos);
         this.marked = new boolean[G.getStationNumber()];
         this.previous = new Station[G.getStationNumber()];
@@ -52,11 +52,11 @@ public class SP {
         this.distance = new double[G.getStationNumber()];
     }
 
-    public SP(int startNodePos, int endNodePos, MetroGraph G)  {
+    public SP(int startNodePos, MetroGraph G)  {
         this.G = G;
         this.startNodePos = startNodePos;
         this.startNode = G.getStation(startNodePos);
-        this.endNodePos = endNodePos;
+        this.endNodePos = G.stationNumber-1;
         this.endNode = G.getStation(endNodePos);
         this.marked = new boolean[G.getStationNumber()];
         this.previous = new Station[G.getStationNumber()];
@@ -75,20 +75,26 @@ public class SP {
             int iPos = i.getStationPosition();
             SPr.add(endNode);
             SPr.add(i);
-            while (iPos != startNodePos) {
-                i = this.previous[iPos];
-                iPos = this.previous[iPos].getStationPosition();
-                if (iPos != 0) {
-                    SPr.add(i);
+            if (iPos != startNodePos) {
+                while (iPos != startNodePos) {
+                    i = this.previous[iPos];
+                    iPos = this.previous[iPos].getStationPosition();
+                    if (iPos != 0) {
+                        SPr.add(i);
+                    }
                 }
+                SPr.add(startNode);
             }
-            SPr.add(startNode);
             Collections.reverse(SPr);
         }
         return SPr;
     }
 
-
+    ArrayList<Station> path(int endNodePos) {
+        this.endNodePos = endNodePos;
+        endNode = G.getStation(endNodePos);
+        return path();
+    }
 
     private ArrayList<DirectEdge> directEdgeSP() {
         ArrayList<Station> path = path();
@@ -156,7 +162,9 @@ public class SP {
 
     @Override
     public String toString() {
-        return "marked=" + Arrays.toString(marked) + ",\nprevious=" + Arrays.toString(previous) +",\ndistance=" + Arrays.toString(distance) ;
+        return "marked=" + Arrays.toString(marked) +
+                ",\nprevious=" + Arrays.toString(previous) +
+                ",\ndistance=" + Arrays.toString(distance) ;
     }
 
 }

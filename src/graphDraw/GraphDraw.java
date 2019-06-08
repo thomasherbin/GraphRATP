@@ -1,8 +1,6 @@
 package graphDraw;
 
-import data.DataBuilder;
 import edu.princeton.cs.introcs.StdDraw;
-import graphOperations.Dijkstra;
 import metroGraph.DirectEdge;
 import metroGraph.*;
 
@@ -17,7 +15,19 @@ public class GraphDraw  implements DrawSettings {
         StdDraw.setYscale(0, frameHeight);
 
         this.metroGraph = new MetroGraph();
+        directEdgeDrawBuild();
+    }
 
+    public GraphDraw(MetroGraph metroGraph) {
+        StdDraw.setCanvasSize(frameWidth, frameHeight);
+        StdDraw.setXscale(0, frameWidth);
+        StdDraw.setYscale(0, frameHeight);
+
+        this.metroGraph = metroGraph;
+        directEdgeDrawBuild();
+    }
+
+    private void directEdgeDrawBuild() {
         for (ArrayList<DirectEdge> stations : metroGraph.getMetroGraph()) {
             for (DirectEdge directEdge : stations) {
                 //System.out.println(directEdge.toString());
@@ -26,22 +36,16 @@ public class GraphDraw  implements DrawSettings {
                 new DirectEdgeDraw(directEdge, AisStationMultyLine, BisStationMultyLine);
             }
         }
-
-
-
-
     }
 
     private boolean isStationMultyLine(Station station) {
         ArrayList<DirectEdge> stations = metroGraph.stationDirectEdge(station);
-        for (DirectEdge directEdge :stations) {
-            if (directEdge.getA().getId() == station.getId()) {
-                if (numberLigneStation(stations) > 1) {
-                    return true;
-                } else {
-                    return false;
+        if (stations != null) {
+            for (DirectEdge directEdge :stations) {
+                if (directEdge.getA().getId() == station.getId()) {
+                    return  (numberLigneStation(stations) > 1);
                 }
-        }
+            }
         }
         return false;
     }

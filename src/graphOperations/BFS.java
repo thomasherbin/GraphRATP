@@ -1,6 +1,5 @@
 package graphOperations;
 
-import data.Data;
 import metroGraph.MetroGraph;
 import metroGraph.Station;
 
@@ -29,8 +28,8 @@ public class BFS extends SP {
         bfsAlgorithm();
     }
 
-    public BFS(MetroGraph G, int startNodePos, int endNodePos)  {
-        super(startNodePos, endNodePos ,G);
+    public BFS(MetroGraph G, int startNodePos)  {
+        super(startNodePos ,G);
         this.bfsList = new ArrayList<>();
         bfsAlgorithm();
     }

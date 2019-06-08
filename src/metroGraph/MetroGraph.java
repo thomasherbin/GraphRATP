@@ -10,13 +10,14 @@ public class MetroGraph {
     public ArrayList<ArrayList<DirectEdge>> metroGraph;
     public int stationNumber;
     public int directEdgeNumber;
+    Data data;
 
     public MetroGraph() throws Exception {
         stationNumber = 0;
         directEdgeNumber = 0;
         this.metroGraph = new ArrayList<>();
         DataBuilder dataToBuild = new DataBuilder();
-        Data data = dataToBuild.getData();
+        this.data = dataToBuild.getData();
         for (DirectEdge directEdge : data.getData()) {
 
             //Get nodes
@@ -107,6 +108,14 @@ public class MetroGraph {
     }
 
 
+    public String printByMetroLineNum() {
+        return data.toString();
+    }
+
+
+
+
+
 
 
 
@@ -124,6 +133,10 @@ public class MetroGraph {
 
     public int getDirectEdgeNumber() {
         return directEdgeNumber;
+    }
+
+    public Data getData() {
+        return data;
     }
 
     @Override

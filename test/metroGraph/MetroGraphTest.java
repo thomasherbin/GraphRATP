@@ -1,6 +1,7 @@
 package metroGraph;
 
 import graphOperations.BFS;
+import graphOperations.Clustering;
 import org.junit.jupiter.api.Test;
 import graphOperations.Dijkstra;
 
@@ -30,6 +31,15 @@ class MetroGraphTest {
         BFS bfs = new BFS(0, 50);
         System.out.println(bfs.toString());
         System.out.println(bfs.printShortSP());
+    }
+
+    @Test
+    void clustering() throws Exception {
+        MetroGraph metroGraph = new MetroGraph();
+        Clustering clustering = new Clustering(metroGraph);
+        System.out.println(metroGraph.printByMetroLineNum());
+        //clustering.removeHighBetweenessEdges(2000);
+        //System.out.println(metroGraph.toString());
     }
 
 
