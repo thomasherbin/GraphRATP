@@ -28,11 +28,15 @@ class MetroGraphTest {
 
     @Test
     void bfs() throws Exception {
-        BFS bfs = new BFS(0, 50);
+        BFS bfs = new BFS(0, 302);
         System.out.println(bfs.toString());
         System.out.println(bfs.printShortSP());
     }
 
+    @Test
+    void findDiameter() throws Exception {
+        double diameter = 0;
+        MetroGraph metroGraph = new MetroGraph();
     @Test
     void clustering() throws Exception {
         MetroGraph metroGraph = new MetroGraph();
@@ -40,6 +44,16 @@ class MetroGraphTest {
         System.out.println(metroGraph.printByMetroLineNum());
         //clustering.removeHighBetweenessEdges(2000);
         //System.out.println(metroGraph.toString());
+    }
+
+        for(int i=0; i<metroGraph.getStationNumber(); i++) {
+            for(int j=0; j<metroGraph.getStationNumber(); j++) {
+                Dijkstra dijkstra = new Dijkstra(metroGraph, i, j);
+
+                if(dijkstra.getMaxDistance() > diameter) diameter = dijkstra.getMaxDistance();
+            }
+        }
+        System.out.println("Diameter : " + diameter);
     }
 
 

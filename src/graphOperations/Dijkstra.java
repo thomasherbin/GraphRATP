@@ -49,6 +49,11 @@ public class Dijkstra extends SP {
                     if (distance[neighborPos] > distance[nodePos] + G.getWeightDirectEdge(node, neighbor)) {
                         distance[neighborPos] = distance[nodePos] + G.getWeightDirectEdge(node, neighbor);
                         previous[neighborPos] = node;
+
+                        //testing if this distance is greater than the current maxDistance
+                        if (distance[neighborPos] > maxDistance) {
+                            maxDistance = distance[neighborPos];
+                        }
                     }
                 }
             }
@@ -86,6 +91,8 @@ public class Dijkstra extends SP {
         }
         return G.getStation(nodePos);
     }
+
+
 
 
 

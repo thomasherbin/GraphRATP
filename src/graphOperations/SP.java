@@ -19,6 +19,8 @@ public class SP {
     private int endNodePos;
     int startNodePos;
 
+    static double maxDistance = 0;
+
     public SP() throws Exception {
         this.G = new MetroGraph();
         this.startNodePos = 0;
@@ -158,6 +160,9 @@ public class SP {
         return distance[endNodePos];
     }
 
+    public double getMaxDistance() {
+        return maxDistance;
+    }
 
 
     @Override
