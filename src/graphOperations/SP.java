@@ -54,17 +54,27 @@ public class SP {
         this.distance = new double[G.getStationNumber()];
     }
 
-    public SP(int startNodePos, MetroGraph G)  {
+    public SP(int startNodePos, int endNodePos, MetroGraph G)  {
         this.G = G;
         this.startNodePos = startNodePos;
         this.startNode = G.getStation(startNodePos);
-        this.endNodePos = G.stationNumber-1;
+        this.endNodePos = endNodePos;
         this.endNode = G.getStation(endNodePos);
         this.marked = new boolean[G.getStationNumber()];
         this.previous = new Station[G.getStationNumber()];
         this.distance = new double[G.getStationNumber()];
     }
 
+    public SP(int startNodePos, MetroGraph G)  {
+        this.G = G;
+        this.startNodePos = startNodePos;
+        this.startNode = G.getStation(startNodePos);
+        this.endNodePos = G.getStationNumber()-1;
+        this.endNode = G.getStation(endNodePos);
+        this.marked = new boolean[G.getStationNumber()];
+        this.previous = new Station[G.getStationNumber()];
+        this.distance = new double[G.getStationNumber()];
+    }
 
 
 

@@ -29,7 +29,7 @@ public class BFS extends SP {
     }
 
     public BFS(MetroGraph G, int startNodePos)  {
-        super(startNodePos ,G);
+        super(startNodePos, G);
         this.bfsList = new ArrayList<>();
         bfsAlgorithm();
     }

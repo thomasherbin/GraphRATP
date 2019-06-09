@@ -35,16 +35,11 @@ class MetroGraphTest {
 
     @Test
     void findDiameter() throws Exception {
+        /*
+         * TODO : Optimize
+         */
         double diameter = 0;
         MetroGraph metroGraph = new MetroGraph();
-    @Test
-    void clustering() throws Exception {
-        MetroGraph metroGraph = new MetroGraph();
-        Clustering clustering = new Clustering(metroGraph);
-        System.out.println(metroGraph.printByMetroLineNum());
-        //clustering.removeHighBetweenessEdges(2000);
-        //System.out.println(metroGraph.toString());
-    }
 
         for(int i=0; i<metroGraph.getStationNumber(); i++) {
             for(int j=0; j<metroGraph.getStationNumber(); j++) {
@@ -54,6 +49,15 @@ class MetroGraphTest {
             }
         }
         System.out.println("Diameter : " + diameter);
+    }
+
+    @Test
+    void clustering() throws Exception {
+        MetroGraph metroGraph = new MetroGraph();
+        Clustering clustering = new Clustering(metroGraph);
+        System.out.println(metroGraph.printByMetroLineNum());
+        //clustering.removeHighBetweenessEdges(2000);
+        //System.out.println(metroGraph.toString());
     }
 
 
