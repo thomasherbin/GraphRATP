@@ -26,8 +26,8 @@ public class Dijkstra extends SP {
         dijkstraAlgorithm();
     }
 
-    public Dijkstra(MetroGraph G, int startNodePos)  {
-        super(startNodePos ,G);
+    public Dijkstra(MetroGraph G, int startNodePos, int endNodePos)  {
+        super(startNodePos, endNodePos,G);
         this.dijkstraList = new ArrayList<>();
         dijkstraAlgorithm();
     }
@@ -49,6 +49,11 @@ public class Dijkstra extends SP {
                     if (distance[neighborPos] > distance[nodePos] + G.getWeightDirectEdge(node, neighbor)) {
                         distance[neighborPos] = distance[nodePos] + G.getWeightDirectEdge(node, neighbor);
                         previous[neighborPos] = node;
+
+                        //testing if this distance is greater than the current maxDistance
+                        if (distance[neighborPos] > maxDistance) {
+                            maxDistance = distance[neighborPos];
+                        }
                     }
                 }
             }
@@ -86,6 +91,8 @@ public class Dijkstra extends SP {
         }
         return G.getStation(nodePos);
     }
+
+
 
 
 

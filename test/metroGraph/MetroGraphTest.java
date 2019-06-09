@@ -28,9 +28,27 @@ class MetroGraphTest {
 
     @Test
     void bfs() throws Exception {
-        BFS bfs = new BFS(0, 50);
+        BFS bfs = new BFS(0, 302);
         System.out.println(bfs.toString());
         System.out.println(bfs.printShortSP());
+    }
+
+    @Test
+    void findDiameter() throws Exception {
+        /*
+         * TODO : Optimize
+         */
+        double diameter = 0;
+        MetroGraph metroGraph = new MetroGraph();
+
+        for(int i=0; i<metroGraph.getStationNumber(); i++) {
+            for(int j=0; j<metroGraph.getStationNumber(); j++) {
+                Dijkstra dijkstra = new Dijkstra(metroGraph, i, j);
+
+                if(dijkstra.getMaxDistance() > diameter) diameter = dijkstra.getMaxDistance();
+            }
+        }
+        System.out.println("Diameter : " + diameter);
     }
 
     @Test
