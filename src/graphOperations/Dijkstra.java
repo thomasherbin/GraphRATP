@@ -26,8 +26,8 @@ public class Dijkstra extends SP {
         dijkstraAlgorithm();
     }
 
-    public Dijkstra(MetroGraph G, int startNodePos, int endNodePos)  {
-        super(startNodePos, endNodePos,G);
+    public Dijkstra(MetroGraph G, int startNodePos)  {
+        super(startNodePos, G);
         this.dijkstraList = new ArrayList<>();
         dijkstraAlgorithm();
     }

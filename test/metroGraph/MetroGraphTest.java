@@ -35,21 +35,17 @@ class MetroGraphTest {
 
     @Test
     void findDiameter() throws Exception {
-        /*
-         * TODO : Optimize
-         */
         double diameter = 0;
         MetroGraph metroGraph = new MetroGraph();
 
         for(int i=0; i<metroGraph.getStationNumber(); i++) {
-            for(int j=0; j<metroGraph.getStationNumber(); j++) {
-                Dijkstra dijkstra = new Dijkstra(metroGraph, i, j);
+            Dijkstra dijkstra = new Dijkstra(metroGraph, i);
 
-                if(dijkstra.getMaxDistance() > diameter) diameter = dijkstra.getMaxDistance();
-            }
+            if(dijkstra.getMaxDistance() > diameter) diameter = dijkstra.getMaxDistance();
         }
         System.out.println("Diameter : " + diameter);
     }
+
 
     @Test
     void clustering() throws Exception {
