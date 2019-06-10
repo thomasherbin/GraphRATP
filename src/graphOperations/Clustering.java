@@ -24,9 +24,7 @@ public class Clustering {
 
                             //DirectEdge directEdge = G.getData().getDirectEdge(A, B);
                             DirectEdge directEdge = G.getDirectEdge(A, B);
-                            if (directEdge != null) {
-                                directEdge.addSpToSpCounter();
-                            }
+                            directEdge.addSpToSpCounter();
                         }
                     }
                 }
@@ -37,7 +35,7 @@ public class Clustering {
     public void removeHighBetweenessEdges(int limit) {
         for (ArrayList<DirectEdge> directEdges : G.metroGraph) {
             directEdges.removeIf(directEdge -> directEdge.getSpCounter() > limit);
-            directEdges.removeIf(directEdge -> directEdge.getSpCounter() < 300);
+            //directEdges.removeIf(directEdge -> directEdge.getSpCounter() < 300);
         }
         G.metroGraph.removeIf(ArrayList::isEmpty);
     }

@@ -1,6 +1,5 @@
 package graphOperations;
 
-import data.Data;
 import metroGraph.DirectEdge;
 import metroGraph.MetroGraph;
 import metroGraph.Station;
@@ -91,7 +90,7 @@ public class SP {
                 while (iPos != startNodePos) {
                     i = this.previous[iPos];
                     iPos = this.previous[iPos].getStationPosition();
-                    if (iPos != 0) {
+                    if (iPos != startNodePos) {
                         SPr.add(i);
                     }
                 }

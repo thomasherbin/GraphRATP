@@ -43,6 +43,7 @@ class MetroGraphTest {
 
             if(dijkstra.getMaxDistance() > diameter) diameter = dijkstra.getMaxDistance();
         }
+
         System.out.println("Diameter : " + diameter);
     }
 
