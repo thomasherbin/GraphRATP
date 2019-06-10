@@ -36,15 +36,20 @@ class MetroGraphTest {
     @Test
     void findDiameter() throws Exception {
         double diameter = 0;
+        String path = "";
         MetroGraph metroGraph = new MetroGraph();
 
         for(int i=0; i<metroGraph.getStationNumber(); i++) {
             Dijkstra dijkstra = new Dijkstra(metroGraph, i);
 
-            if(dijkstra.getMaxDistance() > diameter) diameter = dijkstra.getMaxDistance();
+            if(dijkstra.getMaxDistance() > diameter) {
+                diameter = dijkstra.getMaxDistance();
+                path = dijkstra.getMaxDistancedStations();
+            }
         }
 
         System.out.println("Diameter : " + diameter);
+        System.out.println(path);
     }
 
 

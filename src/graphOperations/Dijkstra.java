@@ -8,6 +8,9 @@ import java.util.ArrayList;
 public class Dijkstra extends SP {
     private ArrayList<Station> dijkstraList;
 
+    private Station stationAmax;
+    private Station stationBmax;
+
     public Dijkstra() throws Exception {
         super();
         this.dijkstraList = new ArrayList<>();
@@ -53,6 +56,8 @@ public class Dijkstra extends SP {
                         //testing if this distance is greater than the current maxDistance
                         if (distance[neighborPos] > maxDistance) {
                             maxDistance = distance[neighborPos];
+                            stationAmax = dijkstraList.get(0);
+                            stationBmax = neighbor;
                         }
                     }
                 }
@@ -94,6 +99,20 @@ public class Dijkstra extends SP {
 
 
 
+    public String getMaxDistancedStations() {
+        double lon1 = stationAmax.getLon();
+        double lat1 = stationAmax.getLat();
+        double lon2 = stationBmax.getLon();
+        double lat2 = stationBmax.getLat();
+
+        double theta = lon1 - lon2;
+        double dist = Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2)) + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.cos(Math.toRadians(theta));
+        dist = Math.acos(dist);
+        dist = Math.toDegrees(dist);
+        dist = dist * 60 * 1.1515 * 1.609344;
+
+        return stationAmax.getName() + " - " + stationBmax.getName() + "\nDistance (in kilometers) : " + dist;
+    }
 
 
     @Override
